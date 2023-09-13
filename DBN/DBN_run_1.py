@@ -23,7 +23,6 @@ from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, r
 import warnings
 warnings.filterwarnings('ignore') 
 from Shared.read_dataset import read_dataset
-from Shared.read_validation import read_validation
 
 
 class DBN(object):
@@ -243,7 +242,7 @@ if __name__ == "__main__":
     learning_rate = 0.0001
     pre_epochs = 100
     training_epochs = 100
-    batch_size = 64
+    batch_size = 10000
     display_step = 10
 
     #DBN structure
@@ -257,7 +256,7 @@ if __name__ == "__main__":
 
     init = tf.global_variables_initializer()
     config = tf.ConfigProto()
-    # config.gpu_options.visible_device_list = "0"
+    config.gpu_options.visible_device_list = "0"
     with tf.Session(config=config) as sess:
         sess.run(init)
         dbn.pretraining(sess, train_set_x = dataset, pretraining_epochs=pre_epochs)
